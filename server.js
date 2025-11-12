@@ -6,8 +6,8 @@ import fs from "fs";
 const app = express();
 
 const options = {
-  key: fs.readFileSync("~/home/ubuntu/privkey.pem"),
-  cert: fs.readFileSync("~/home/ubuntu/fullchain.pem"),
+  key: fs.readFileSync("/home/ubuntu/privkey.pem"),
+  cert: fs.readFileSync("/home/ubuntu/fullchain.pem"),
 };
 
 const httpsServer = createServer(options, app);
