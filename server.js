@@ -1,12 +1,18 @@
-import { createServer } from "http";
+import { createServer } from "https";
 import express from "express";
 import { Server } from "socket.io";
+import fs from "fs";
 
 const app = express();
 
-const httpServer = createServer(app);
+const options = {
+  key: fs.readFileSync("~/home/ubuntu/privkey.pem"),
+  cert: fs.readFileSync("~/home/ubuntu/fullchain.pem"),
+};
 
-const io = new Server(httpServer, {
+const httpsServer = createServer(options, app);
+
+const io = new Server(httpsServer, {
   cors: { origin: "*" }
 });
 
@@ -52,6 +58,6 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(8080, () => {
+httpsServer.listen(8080, () => {
   console.log("WSS server running on wss://turn.aliesmatparast.ir:8080");
 });
